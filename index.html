@@ -124,9 +124,19 @@
             font-style: italic;
         }
 
+        .produto-card  select {
+            width: 100%;
+            padding: 5px;
+            color: white;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            background-color: #8a6f47;
+            border-radius: 5px;
+        }
+
 
         .produto-card button {
-            background-color: #c7a97b;
+            background-color: #8a6f47;
             color: #fff;
             border: none;
             padding: 5px 10px;
@@ -574,36 +584,82 @@ footer i {
 </span>
 
 <span class="produto-card">
-  <img src="img/cetim1.jpg" alt="Mini Setin Bouquet">
-  <h3>Mini Setin Bouquet</h3>
-  <p class="descricao">Um mimo delicado com rosas de cetim para momentos inesquecíveis.</p>
-  <p>R$60,00</p>
-  <button class="btn-whatsapp" data-nome="Mini Setin Bouquet" data-preco="R$60,00">Comprar</button>
-</span>
-
-<span class="produto-card">
   <img src="img/cetim2.jpg" alt="Setin Bouquet">
-  <h3>Setin Bouquet</h3>
-  <p class="descricao">Bouquet elegante e duradouro, feito com rosas de cetim feitas à mão.</p>
-  <p>R$90,00</p>
-  <button class="btn-whatsapp" data-nome="Setin Bouquet" data-preco="R$90,00">Comprar</button>
+  <h3> Cetim Bouquet</h3>
+  <p class="descricao">Um mimo delicado com rosas de cetim para momentos inesquecíveis.</p>
+  <p class="preco">A partir de R$60,00</p>
+
+  <label for="tamanho-cetim1">Tamanho:</label>
+  <select id="tamanho-cetim1" class="opcoes-tamanho">
+    <option value="8 Rosas" data-preco="R$60,00">8 rosas - R$60,00</option>
+    <option value="14 Rosas" data-preco="R$90,00">14 rosas - R$90,00</option>
+    <option value="20 Rosas" data-preco="R$120,00">20 rosas - R$120,00</option>
+  </select>
+
+  <button
+    class="btn-whatsapp"
+    data-nome="Cetim Bouquet"
+    data-variacoes='[
+      {"tamanho":"8 Rosas","preco":"R$60,00"},
+      {"tamanho":"14 Rosas","preco":"R$90,00"},
+      {"tamanho":"20 Rosas","preco":"R$120,00"}
+    ]'>
+    Comprar
+  </button>
 </span>
 
 <span class="produto-card">
   <img src="img/butterfly1.jpg" alt="Butterfly Bouquet">
   <h3>Butterfly Bouquet</h3>
-  <p class="descricao">Flores já são lindas, mas um bouquet de borboletas ainda mais linda!</p>
-  <p>R$70,00</p>
-  <button class="btn-whatsapp" data-nome="Butterfly Bouquet" data-preco="R$70,00">Comprar</button>
+  <p class="descricao">Flores já são lindas, mas um bouquet de borboletas é ainda mais lindo!</p>
+
+  <p>A partir de R$70,00</p>
+
+  <label for="borboletas-butterfly">Tamanho:</label>
+  <select class="opcoes-tamanho" id="borboletas-butterfly">
+    <option value="30 borboletas">30 borboletas-R$50,00</option>
+    <option value="50 borboletas">50 borboletas-R$70,00</option>
+    <option value="100 borboletas">100 borboletas-R$100,00</option>
+  </select>
+
+  
+  <button
+    class="btn-whatsapp"
+    data-nome="Butterfly Bouquet"
+    data-variacoes='[
+      { "tamanho": "30 borboletas", "preco": "R$50,00" },
+      { "tamanho": "50 borboletas", "preco": "R$70,00" },
+      { "tamanho": "100 borboletas", "preco": "R$100,00" }
+    ]'
+  >Comprar</button>
 </span>
+
 
 <span class="produto-card">
   <img src="img/butterfly2.jpg" alt="Choco-Butterfly Bouquet">
   <h3>Choco-Butterfly Bouquet</h3>
   <p class="descricao">Borboletas e chocolates, o combo perfeito para adoçar corações.</p>
-  <p>R$85,00</p>
-  <button class="btn-whatsapp" data-nome="Choco-Butterfly Bouquet" data-preco="R$85,00">Comprar</button>
+
+  <p>A partir de R$60,00</p>
+
+  <label for="borboletas-choco">Tamanho:</label>
+  <select class="opcoes-tamanho" id="borboletas-choco">
+    <option value="30 borboletas">30 borboletas-R$60,00</option>
+    <option value="50 borboletas">50 borboletas-R$85,00</option>
+    <option value="100 borboletas">100 borboletas-R$110,00</option>
+  </select>
+
+  <button
+    class="btn-whatsapp"
+    data-nome="Choco-Butterfly Bouquet"
+    data-variacoes='[
+      { "tamanho": "30 borboletas", "preco": "R$60,00" },
+      { "tamanho": "50 borboletas", "preco": "R$85,00" },
+      { "tamanho": "100 borboletas", "preco": "R$110,00" }
+    ]'
+  >Comprar</button>
 </span>
+
 
     </div>
 
@@ -660,14 +716,58 @@ footer i {
 
         document.querySelectorAll(".btn-whatsapp").forEach(botao => {
             botao.addEventListener("click", function () {
-            const nome = this.getAttribute("data-nome");
-            const preco = this.getAttribute("data-preco");
-            const mensagem = `Olá, gostei do produto ${nome}, vi que ele está por ${preco}, tenho interesse em comprar.`;
+                const nome = this.getAttribute("data-nome");
+                const variacoes = this.getAttribute("data-variacoes");
+                const precoFixo = this.getAttribute("data-preco");
+                let mensagem = "";
+                let preco = "";
+                let tamanho = "";
+
+                if (variacoes) {
+      // Tenta achar o <select> correspondente dentro do mesmo produto-card
+                    const card = this.closest(".produto-card");
+                    const select = card.querySelector(".opcoes-tamanho");
+
+                if (select) {
+                    tamanho = select.value;
+                    const listaVariacoes = JSON.parse(variacoes);
+                    const variacaoSelecionada = listaVariacoes.find(v => v.tamanho === tamanho);
+
+                    if (variacaoSelecionada) {
+                        preco = variacaoSelecionada.preco;
+                        mensagem = `Olá, gostei do produto ${nome} com o tamanho ${tamanho}, vi que ele está por ${preco}, tenho interesse em comprar.`;
+                    } else {
+                        alert("Erro ao encontrar a variação selecionada.");
+                        return;
+                    }
+                } else {
+                    alert("Nenhuma opção de tamanho selecionada.");
+                    return;
+                }
+        } else {
+            preco = precoFixo;
+            mensagem = `Olá, gostei do produto ${nome}, vi que ele está por ${preco}, tenho interesse em comprar.`;
+        }
 
             const link = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-
             window.open(link, "_blank");
+        });
+    });
+
+
+        document.querySelectorAll('.produto-card').forEach(card => {
+            const variacoes = JSON.parse(card.dataset.variacoes || "[]");
+            const select = card.querySelector('.opcoes-tamanho');
+            const precoDisplay = card.querySelector('p');
+
+            if (select && variacoes.length > 0) {
+                select.addEventListener('change', e => {
+                const selecionado = variacoes.find(v => v.tamanho === e.target.value);
+                if (selecionado) {
+                    precoDisplay.textContent = selecionado.preco;
+                }
             });
+            }
         });
 
     </script>
