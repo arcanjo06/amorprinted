@@ -1,779 +1,1251 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Amor Printed - Loja de produtos artesanais">
-    <meta property="og:description" content="Site desenvolvido com foco em UX/UI para valorizar produtos artesanais e facilitar compras via WhatsApp.">
-    <link rel="icon" href="img/icon.jpeg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      property="og:title"
+      content="Amor Printed - Loja de produtos artesanais"
+    />
+    <meta
+      property="og:description"
+      content="Site desenvolvido com foco em UX/UI para valorizar produtos artesanais e facilitar compras via WhatsApp."
+    />
+    <link rel="icon" href="img/icon.jpeg" />
     <!-- Link para o Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 
     <title>Amor Printed</title>
     <style>
+      body {
+        background-color: #ffe9c6;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-image: url("img/header.jpg"), url("img/header2.jpg");
+        background-repeat: no-repeat;
+        background-size: 50% 100%, 50% 100%; /* Ajusta cada imagem para ocupar 50% da largura */
+        background-position: left center, right center; /* Coloca uma imagem à esquerda e outra à direita */
+        color: #ffffff;
+        padding: 20px;
+        height: 500px;
+        text-align: center;
+        display: flex;
+        position: relative;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: 0;
+        width: 100%;
+        height: 540px;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+      .navbar {
+        max-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: #000000;
+      }
+      .navbar .logo {
+        margin: 10px 20px;
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: #f7caad;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .navbar a:hover {
+        color: #c7a97b;
+      }
+
+      .menu ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(30, 20, 10, 0.95);
+        z-index: 1000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu-overlay ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+
+      .menu-overlay ul li {
+        margin: 20px 0;
+      }
+
+      .menu-overlay ul li a {
+        font-size: 24px;
+        color: #f7caad;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .menu-overlay ul li a:hover {
+        color: #c7a97b;
+      }
+
+      .menu-overlay.show {
+        display: flex;
+      }
+
+      .social-nav a {
+        color: #5c3a24;
+        font-size: 14px;
+        margin: 10px 15px;
+        display: inline-block;
+        text-decoration: none;
+        background-color: #f7caad;
+        width: 130px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .social-nav a:hover {
+        background-color: #352612;
+        transform: translateY(-2px);
+      }
+
+      .hero {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .hero h1 {
+        color: #f9e2c1c2;
+        transform: translateY(-50px);
+      }
+      .hero img {
+        width: 500px;
+        height: auto;
+      }
+
+      .title {
+        font-size: 36px;
+        color: #1d0c00;
+        text-align: center;
+        font-family: "Georgia", sans-serif;
+        margin: 30px 0;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .produtos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .produto-card {
+        width: 270px;
+        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .produto-card:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+
+      .produto-card img {
+        border-radius: 5px;
+        object-fit: cover;
+        width: 250px;
+        height: 250px;
+      }
+
+      .produto-card h3 {
+        font-size: 1.2rem;
+        color: #1d0c00;
+        margin: 10px 0;
+      }
+      .produto-card p {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #1d0c00;
+      }
+      .produto-card .descricao {
+        font-size: 0.9rem;
+        color: #525151cb;
+        margin: 4px 0;
+        font-weight: lighter;
+        font-style: italic;
+        margin: 5px;
+      }
+
+      .produto-card button {
+        margin: 10px 0;
+        background-color: #6e532b;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .produto-card button:hover {
+        background-color: #5c3a24;
+      }
+
+      .sobre {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px;
+        font-family: "Arial", sans-serif;
+        line-height: 1.8;
+        color: #5c3a24;
+        border-radius: 10px;
+        background-color: #fff; /* Aplicado só no container agora */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* leve sombra para destaque */
+      }
+
+      /* Título da página */
+
+      /* Estilo para os subtítulos das seções */
+      .sobre h2 {
+        font-size: 24px;
+        color: #5c3a24;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        border-left: 4px solid #c7a97b; /* destaque mais leve */
+        padding-left: 15px;
+        text-align: left;
+      }
+
+      /* Estilo para os parágrafos */
+      .sobre p {
+        font-size: 18px;
+        color: #5c3a24;
+        margin-bottom: 20px;
+        text-align: justify; /* Justifica o texto para uma leitura mais fluida */
+        line-height: 1.8;
+      }
+
+      /* Destaque para o texto forte */
+      .sobre p strong {
+        font-weight: bold;
+        color: #5c3a24; /* Cor para destacar partes importantes */
+      }
+
+      /* Adicionando um fundo suave nas seções */
+      .sobre h2,
+      .sobre p {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+      }
+
+      /* Efeito hover nas seções */
+      .sobre h2:hover {
+        background-color: #f8efe2;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Espaçamento entre as seções */
+      .sobre h2 + p {
+        margin-top: 20px;
+      }
+
+      /* Estilos gerais para o footer */
+      footer {
+        background-color: #1f1f1f;
+        color: #fff;
+        padding: 40px 20px;
+        font-size: 14px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer-links a,
+      .footer-section.social a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover,
+      .footer-section.social a:hover {
+        color: #f9735b; /* Coral vibrante, seguindo seu tom */
+      }
+
+      .footer-section.contact p,
+      .footer-section.about p {
+        margin: 0;
+      }
+
+      .footer-section i {
+        margin-right: 8px;
+      }
+
+      @media(max-width: 768px) {
         body {
-            background-color: #fde8ce;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+          max-width: 100%;
+          overflow-x: hidden;
         }
         header {
-            background-image: url('img/header.jpg'), url('img/header2.jpg');
-            background-repeat: no-repeat;
-            background-size: 50% 100%, 50% 100%; /* Ajusta cada imagem para ocupar 50% da largura */
-            background-position: left center, right center; /* Coloca uma imagem à esquerda e outra à direita */
-            color: #FFFFFF;
-            padding: 20px;
-            height: 500px;
-            text-align: center;
-            display: flex;
+          height: auto;
+          flex-direction: column;
+          padding: 10px;
+          background-size: cover; /* para não ficar estranho com duas imagens */
+          background-position: center;
+        }
+        header::before {
+          height: 100%;
         }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 540px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* esse valor escurece */
-            z-index: 1;
-            }
-        .hero {
-            position: relative;
-            z-index: 2;
-            padding: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .hero h1{
-            color: #f9e2c1c2;
-            transform: translateY(-50px);
-        }
-        .hero img{
-            width: 500px;
-            height: auto;
+        .hero h1 {
+          font-size: 24px;
+          transform: translateY(0);
+          margin-bottom: 15px;
         }
 
-        .main {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .nav a {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            text-decoration: none;
-            
-            color: #5C3A24;
-        }
-
-        .nav a:hover {
-            text-decoration: underline;
-            text-decoration-color: #c7a97b ;
-        }
-
-        .tittle {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
-            color: #5C3A24;
+        .hero img {
+          width: 90%;
+          max-width: 300px;
         }
 
         .produtos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
+          flex-direction: column;
+          padding: 10px;
         }
 
         .produto-card {
-            width: 260px;
-            text-align: center;
-            padding: 10px;
-            margin: 10px;
-            background-color: #FAF5EF;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+          width: 100%;
+          margin: 10px 0;
         }
 
-        .produto-card:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
+        /* Navbar */
+        .navbar {
+          padding: 10px 20px;
         }
 
-        .produto-card img {
-            border-radius: 5px;
-            object-fit: cover;
-            width: 150px;
-            height: 150px;
-        }
-        .produto-card .descricao {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 4px 0;
-            font-style: italic;
-        }
-
-        .produto-card  select {
-            width: 100%;
-            padding: 5px;
-            color: white;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            background-color: #8a6f47;
-            border-radius: 5px;
+        /* Esconde o menu padrão e mostra o hamburger */
+        .menu ul {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background-color: #000;
+          position: absolute;
+          top: 60px; /* abaixo da navbar */
+          left: 0;
+          padding: 0;
+          margin: 0;
+          border-radius: 0 0 8px 8px;
         }
 
-
-        .produto-card button {
-            background-color: #8a6f47;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .menu ul.show {
+          display: flex;
         }
 
-        .produto-card button:hover {
-            background-color: #5C3A24;
+        .menu ul li {
+          margin: 10px 0;
+          text-align: center;
         }
+
+        .menu ul li a {
+          margin: 0;
+          padding: 10px 0;
+          display: block;
+        }
+
+        /* Botão hamburger */
+        .hamburger {
+          display: block;
+          cursor: pointer;
+          width: 30px;
+          height: 22px;
+          position: relative;
+        }
+
+        .hamburger span {
+          background: #f7caad;
+          position: absolute;
+          height: 4px;
+          width: 100%;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
+
+        .hamburger span:nth-child(1) {
+          top: 0;
+        }
+        .hamburger span:nth-child(2) {
+          top: 9px;
+        }
+        .hamburger span:nth-child(3) {
+          top: 18px;
+        }
+
+        /* Opcional: animação do hamburger aberto */
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(45deg);
+          top: 9px;
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(-45deg);
+          top: 9px;
+        }
+      }
         
-        .sobre {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px;
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #5C3A24; /* Cor do texto */
-            border-radius: 10px;
-        }   
 
-/* Título da página */
-.tittle {
-    font-size: 36px;
-    color: #5C3A24;
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
+      /* Responsividade para dispositivos móveis */
+      @media (max-width: 687px) {
+        body {
+          max-width: 100%;
+          overflow-x: hidden;
+        }
+        header {
+          height: auto;
+          flex-direction: column;
+          padding: 10px;
+          background-size: cover; /* para não ficar estranho com duas imagens */
+          background-position: center;
+        }
+        header::before {
+          height: 100%;
+        }
 
-/* Estilo para os subtítulos das seções */
-.sobre h2 {
-    font-size: 28px;
-    color: #5C3A24; /* Cor de destaque */
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-weight: bold;
-    border-bottom: 2px solid #c7a97b; /* Linha de destaque abaixo dos subtítulos */
-    padding-bottom: 5px;
-    text-align: center;
-}
+        .hero h1 {
+          font-size: 24px;
+          transform: translateY(0);
+          margin-bottom: 15px;
+        }
 
-/* Estilo para os parágrafos */
-.sobre p {
-    font-size: 18px;
-    color: #5C3A24;
-    margin-bottom: 20px;
-    text-align: justify; /* Justifica o texto para uma leitura mais fluida */
-    line-height: 1.8;
-}
+        .hero img {
+          width: 90%;
+          max-width: 300px;
+        }
 
-/* Destaque para o texto forte */
-.sobre p strong {
-    font-weight: bold;
-    color: #5C3A24; /* Cor para destacar partes importantes */
-}
+        .produtos {
+          flex-direction: column;
+          padding: 10px;
+        }
 
-/* Adicionando um fundo suave nas seções */
-.sobre h2, .sobre p {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 15px 0;
-}
+        .produto-card {
+          width: 100%;
+          margin: 10px 0;
+        }
 
-/* Efeito hover nas seções */
-.sobre h2:hover, .sobre p:hover {
-    background-color: #f0e6d6;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        /* Navbar */
+        .navbar {
+          display: flex;
+          padding: 10px 20px;
+          justify-content: space-evenly;
+        }
 
-/* Espaçamento entre as seções */
-.sobre h2 + p {
-    margin-top: 20px;
-}
+        /* Esconde o menu padrão e mostra o hamburger */
+        .menu ul {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background-color: #000;
+          position: absolute;
+          top: 60px; /* abaixo da navbar */
+          left: 0;
+          padding: 0;
+          margin: 0;
+          border-radius: 0 0 8px 8px;
+        }
 
-        /* Estilos gerais para o footer */
-footer {
-    background-color: #5C3A24; /* Cor de fundo marrom quente */
-    color: #fff; /* Cor do texto branca para contraste */
-    padding: 20px;
-    margin-top: 10px;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-}
+        .menu ul.show {
+          display: flex;
+        }
 
-/* Conteúdo do footer */
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .menu ul li {
+          margin: 10px 0;
+          text-align: center;
+        }
 
-/* Estilos do texto e copyright */
-footer p {
-    font-size: 12px;
-    margin: 10px 0;
-}
+        .menu ul li a {
+          margin: 0;
+          padding: 10px 0;
+          display: block;
+        }
 
-footer i {
-    margin-right: 5px; /* Espaço entre o ícone e o texto */
-}
+        /* Botão hamburger */
+        .hamburger {
+          display: block;
+          cursor: pointer;
+          width: 30px;
+          height: 22px;
+          position: relative;
+          z-index: 1001;
+        }
 
-/* Links no footer */
-.footer-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    margin: 10px 0;
-    display: inline-block; /* Deixa os links em bloco para fácil navegação */
-}
+        .hamburger span {
+          background: #f7caad;
+          position: absolute;
+          height: 4px;
+          width: 100%;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
 
-.footer-links a:hover {
-    color: #FF5733; /* Cor ao passar o mouse nos links */
-}
+        .hamburger span:nth-child(1) {
+          top: 0;
+        }
+        .hamburger span:nth-child(2) {
+          top: 9px;
+        }
+        .hamburger span:nth-child(3) {
+          top: 18px;
+        }
 
-/* Redes sociais */
-.social a {
-    color: #fff;
-    font-size: 14px;
-    margin: 10px 15px;
-    display: inline-block;
-    text-decoration: none;
-}
-
-.social a:hover {
-    color: #FF5733;
-    transform: scale(1.2); /* Cor ao passar o mouse nas redes sociais */
-}
-
-.social i {
-    margin-right: 8px; /* Espaço entre o ícone e o texto */
-}
-
-/* Estilo da área da newsletter */
-.newsletter h4 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.newsletter form {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.newsletter input[type="email"] {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    width: 250px;
-    font-size: 16px;
-}
-
-.newsletter button {
-    padding: 10px 20px;
-    background-color: #FF5733;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.newsletter button:hover {
-    background-color: #e04e2f;
-}
-
-/* Informações de contato e localização */
-.contact-info, .location {
-    font-size: 14px;
-    margin-top: 20px;
-}
-
-.contact-info a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.contact-info a:hover {
-    color: #FF5733; /* Cor ao passar o mouse */
-}
-
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) {
-
-    header{
-        background-image: url('img/header2.jpg');
-        background-size: cover;
-        height: 60vh;
-    }
-
-    .hero img{
-        width: 200px;
-        height: auto;
-    }
-
-    .hero h1 {
-        font-size: 24px;
-    }
-
-    .overlay{
-        height: 65vh;
-        
-    }
-
-    .main {
-        padding: 20px;
-    }
-
-    .sobre h2{
-        font-size: 5vw;
-    }
-
-    .sobre p{
-        padding: 20px;
-        font-size: 4vw;
-    }
-
-
-    .social {
-        text-align: center;
-    }
-    
-    .social a {
-        margin: 5px;
-    }
-
-    .footer-links a {
-        font-size: 14px;
-    }
-    
-    .newsletter input[type="email"] {
-        width: 200px;
-    }
-
-    .newsletter button {
-        font-size: 14px;
-        padding: 8px 15px;
-    }
-
-    .location, .contact-info {
-        font-size: 12px;
-    }
-}
-
+        /* Opcional: animação do hamburger aberto */
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(45deg);
+          top: 9px;
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(-45deg);
+          top: 9px;
+        }
+        .social-nav{
+          display: none;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <nav class="navbar">
+      <span class="logo">
+        <img src="img/logo.png" alt="Logo" width="100px" />
+      </span>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-overlay" id="menu-overlay">
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="menu">
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <span class="social-nav">
+        <a
+          href="https://api.whatsapp.com/send/?phone=5581994978629&text&type=phone_number&app_absent=0"
+          ><i class="fab fa-whatsapp"></i> Whatsapp</a
+        >
+        <a href="https://www.instagram.com/amorprinted/"
+          ><i class="fab fa-instagram"></i> Instagram</a
+        >
+      </span>
+    </nav>
     <header>
-        <div class="overlay"></div>
-        <div class="hero">
-            <img src="img/logo.png" alt="Logo">
-            <h1>"Transformando memórias em presentes cheios de amor."</h1>
-        </div>
+      <div class="hero">
+        <img src="img/logo.png" alt="Logo" />
+        <h1>"Transformando memórias em presentes cheios de amor."</h1>
+      </div>
     </header>
 
-    <div class="main">
-        <span class="nav">
-            <a href="#produtos">Produtos</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#contato">Contato</a>
-            
-        </span>
-
-    </div>
-
-    <h1 class="tittle">Produtos</h1>
+    <h1 class="title">Produtos</h1>
 
     <div class="produtos" id="produtos">
-        
-
-    <span class="produto-card">
-        <img src="img/header.jpg" alt="Box Love">
+      <span class="produto-card">
+        <img src="img/header.jpg" alt="Box Love" />
         <h3>Box Love</h3>
-        <p class="descricao">Presente completo para expressar sentimentos com charme.</p>
+        <p class="descricao">
+          Presente completo para expressar sentimentos com charme.
+        </p>
         <p>R$75,00</p>
-        <button class="btn-whatsapp" data-nome="Box Love" data-preco="R$75,00">Comprar</button>
-    </span>
+        <button class="btn-whatsapp" data-nome="Box Love" data-preco="R$75,00">
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/box.jpg" alt="Mini Box Love">
+      <span class="produto-card">
+        <img src="img/box.jpg" alt="Mini Box Love" />
         <h3>Mini Box Love</h3>
         <p class="descricao">Delicadeza compacta com um toque de amor.</p>
         <p>R$15,00</p>
-        <button class="btn-whatsapp" data-nome="Mini Box Love" data-preco="R$15,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Mini Box Love"
+          data-preco="R$15,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/caixa1.jpg" alt="Box Light-Bear">
+      <span class="produto-card">
+        <img src="img/caixa1.jpg" alt="Box Light-Bear" />
         <h3>Box Light-Bear</h3>
         <p class="descricao">Uma combinação doce com um ursinho especial.</p>
         <p>R$90,00</p>
-        <button class="btn-whatsapp" data-nome="Box Light-Bear" data-preco="R$90,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Box Light-Bear"
+          data-preco="R$90,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/cesta1.jpg" alt="Cesta Super-Hero">
+      <span class="produto-card">
+        <img src="img/caixa_vale.png" alt="Caixa Vale do Amor" />
+        <h3>Caixa Vale do Amor</h3>
+        <p class="descricao">
+          Uma caixinha cheia de amor, com polaroids, chaveiro, chocolate e um
+          certificado pro melhor namorado do mundo!
+        </p>
+        <p>R$35,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Caixa Vale do Amor"
+          data-preco="R$35,00"
+        >
+          Comprar
+        </button>
+      </span>
+
+      <span class="produto-card">
+        <img src="img/cesta1.jpg" alt="Cesta Super-Hero" />
         <h3>Cesta Super-Hero</h3>
         <p class="descricao">Para quem é fã de heróis e momentos incríveis.</p>
         <p>R$60,00</p>
-        <button class="btn-whatsapp" data-nome="Cesta Super-Hero" data-preco="R$60,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Cesta Super-Hero"
+          data-preco="R$60,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/cesta2.jpg" alt="Cesta Choco-Bear">
+      <span class="produto-card">
+        <img src="img/cesta2.jpg" alt="Cesta Choco-Bear" />
         <h3>Cesta Choco-Bear</h3>
-        <p class="descricao">Muito chocolate e um urso adorável para acompanhar.</p>
+        <p class="descricao">
+          Muito chocolate e um urso adorável para acompanhar.
+        </p>
         <p>R$60,00</p>
-        <button class="btn-whatsapp" data-nome="Cesta Choco-Bear" data-preco="R$60,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Cesta Choco-Bear"
+          data-preco="R$60,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/cesta3.jpg" alt="Cesta de Chocolate">
+      <span class="produto-card">
+        <img src="img/cesta3.jpg" alt="Cesta de Chocolate" />
         <h3>Cesta de Chocolate</h3>
         <p class="descricao">Ideal para os chocólatras de plantão!</p>
         <p>R$45,00</p>
-        <button class="btn-whatsapp" data-nome="Cesta de Chocolate" data-preco="R$45,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Cesta de Chocolate"
+          data-preco="R$45,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/ferreiro1.jpg" alt="Love Rocher">
+      <span class="produto-card">
+        <img src="img/ferreiro1.jpg" alt="Love Rocher" />
         <h3>Love Rocher</h3>
         <p class="descricao">Ferrero Rocher com muito carinho e elegância.</p>
         <p>R$85,00</p>
-        <button class="btn-whatsapp" data-nome="Love Rocher" data-preco="R$85,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Love Rocher"
+          data-preco="R$85,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/cesta4.jpg" alt="Love Ouro Branco" style="object-position: 0px -80px;">
+      <span class="produto-card">
+        <img
+          src="img/cesta4.jpg"
+          alt="Love Ouro Branco"
+          style="object-position: 0px -80px"
+        />
         <h3>Love Ouro Branco</h3>
         <p class="descricao">Surpresa deliciosa com bombons Ouro Branco.</p>
         <p>R$60,00</p>
-        <button class="btn-whatsapp" data-nome="Love Ouro Branco" data-preco="R$60,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Love Ouro Branco"
+          data-preco="R$60,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-         <img src="img/cesta5.jpg" alt="Mini Love Ouro Branco">
+      <span class="produto-card">
+        <img src="img/cesta5.jpg" alt="Mini Love Ouro Branco" />
         <h3>Mini Love Ouro Branco</h3>
         <p class="descricao">Versão menor com o mesmo sabor e carinho.</p>
         <p>R$45,00</p>
-        <button class="btn-whatsapp" data-nome="Mini Love Ouro Branco" data-preco="R$45,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Mini Love Ouro Branco"
+          data-preco="R$45,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/polaroid1.jpg" alt="Polaroid Comum">
+      <span class="produto-card">
+        <img src="img/polaroid1.jpg" alt="Polaroid Comum" />
         <h3>Polaroid Comum</h3>
-        <p class="descricao">Foto estilo retrô para guardar lembranças especiais.</p>
+        <p class="descricao">
+          Foto estilo retrô para guardar lembranças especiais.
+        </p>
         <p>R$1,00</p>
-        <button class="btn-whatsapp" data-nome="Polaroid Comum" data-preco="R$1,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Polaroid Comum"
+          data-preco="R$1,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/polaroid2.jpg" alt="Polaroid Spotify">
+      <span class="produto-card">
+        <img src="img/polaroid2.jpg" alt="Polaroid Spotify" />
         <h3>Polaroid Spotify</h3>
-        <p class="descricao">Com código do Spotify pra reviver momentos musicais.</p>
+        <p class="descricao">
+          Com código do Spotify pra reviver momentos musicais.
+        </p>
         <p>R$1,50</p>
-        <button class="btn-whatsapp" data-nome="Polaroid Spotify" data-preco="R$1,50">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Polaroid Spotify"
+          data-preco="R$1,50"
+        >
+          Comprar
+        </button>
+      </span>
 
-    <span class="produto-card">
-        <img src="img/polaroid3.jpg" alt="Polaroid de Mesa">
+      <span class="produto-card">
+        <img src="img/kit_varal.png" alt="Kit Varalzinho" />
+        <h3>Kit Varalzinho</h3>
+        <p class="descricao">
+          Vem com 10 mini prendedores + 2m de fio. ✨ Ideal pra
+          fotos e recadinhos 💌
+        </p>
+        <p>R$8,50</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Kit Varalzinho"
+          data-preco="R$8,50"
+        >
+          Comprar
+        </button>
+      </span>
+
+      <span class="produto-card">
+        <img src="img/polaroid3.jpg" alt="Polaroid de Mesa" />
         <h3>Polaroid de Mesa</h3>
-        <p class="descricao">Para deixar suas lembranças em destaque na decoração.</p>
+        <p class="descricao">
+          Para deixar suas lembranças em destaque na decoração.
+        </p>
         <p>R$16,00</p>
-        <button class="btn-whatsapp" data-nome="Polaroid de Mesa" data-preco="R$16,00">Comprar</button>
-    </span>
+        <button
+          class="btn-whatsapp"
+          data-nome="Polaroid de Mesa"
+          data-preco="R$16,00"
+        >
+          Comprar
+        </button>
+      </span>
 
+      <span class="produto-card">
+        <img src="img/quadro1.jpg" alt="Quadro Personalizado 1" />
+        <h3>Quadro Personalizado 1</h3>
+        <p class="descricao">
+          Transforme suas memórias em arte com este quadro único e elegante.
+        </p>
+        <p>R$45,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Quadro Personalizado 1"
+          data-preco="R$45,00"
+        >
+          Comprar
+        </button>
+      </span>
 
+      <span class="produto-card">
+        <img src="img/quadro2.jpg" alt="Quadro Personalizado 2" />
+        <h3>Quadro Personalizado 2</h3>
+        <p class="descricao">
+          Ideal para presentear alguém especial com um toque pessoal e criativo.
+        </p>
+        <p>R$45,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Quadro Personalizado 2"
+          data-preco="R$45,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-       <span class="produto-card">
-  <img src="img/quadro1.jpg" alt="Quadro Personalizado 1">
-  <h3>Quadro Personalizado 1</h3>
-  <p class="descricao">Transforme suas memórias em arte com este quadro único e elegante.</p>
-  <p>R$45,00</p>
-  <button class="btn-whatsapp" data-nome="Quadro Personalizado 1" data-preco="R$45,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/quadro3.jpg" alt="Quadro Personalizado Netflix" />
+        <h3>Quadro Personalizado Netflix</h3>
+        <p class="descricao">
+          Perfeito para casais apaixonados por maratonar juntos!
+        </p>
+        <p>R$45,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Quadro Personalizado Netflix"
+          data-preco="R$45,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/quadro2.jpg" alt="Quadro Personalizado 2">
-  <h3>Quadro Personalizado 2</h3>
-  <p class="descricao">Ideal para presentear alguém especial com um toque pessoal e criativo.</p>
-  <p>R$45,00</p>
-  <button class="btn-whatsapp" data-nome="Quadro Personalizado 2" data-preco="R$45,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img
+          src="img/hotwheels.jpg"
+          alt="Hotwheels Personalizado"
+          style="object-position: 0px -40px"
+        />
+        <h3>Hotwheels Personalizado</h3>
+        <p class="descricao">
+          Miniatura exclusiva com toque especial para colecionadores.
+        </p>
+        <p>R$40,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Hotwheels Personalizado"
+          data-preco="R$40,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/quadro3.jpg" alt="Quadro Personalizado Netflix">
-  <h3>Quadro Personalizado Netflix</h3>
-  <p class="descricao">Perfeito para casais apaixonados por maratonar juntos!</p>
-  <p>R$45,00</p>
-  <button class="btn-whatsapp" data-nome="Quadro Personalizado Netflix" data-preco="R$45,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/bag1.jpg" alt="Bag Personalizada" />
+        <h3>Bag Personalizada</h3>
+        <p class="descricao">
+          Bag que possui as melhores surpresas para seu dia
+        </p>
+        <p>R$75,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Bag Personalizada"
+          data-preco="R$75,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/hotwheels.jpg" alt="Hotwheels Personalizado" style="object-position: 0px -40px;">
-  <h3>Hotwheels Personalizado</h3>
-  <p class="descricao">Miniatura exclusiva com toque especial para colecionadores.</p>
-  <p>R$40,00</p>
-  <button class="btn-whatsapp" data-nome="Hotwheels Personalizado" data-preco="R$40,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/jar.jpg" alt="Potinho de Luz" />
+        <h3>Potinho de Luz</h3>
+        <p class="descricao">
+          Encante com essa decoração mágica que brilha no escuro.
+        </p>
+        <p>R$35,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Potinho de Luz"
+          data-preco="R$35,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/bag1.jpg" alt="Bag Personalizada">
-  <h3>Bag Personalizada</h3>
-  <p class="descricao">Bag que possui as melhores surpresas para seu dia</p>
-  <p>R$75,00</p>
-  <button class="btn-whatsapp" data-nome="Bag Personalizada" data-preco="R$75,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/chaveiro.jpg" alt="Par de Chaveiros" />
+        <h3>Par de Chaveiros</h3>
+        <p class="descricao">
+          Chaveiros combinando para você e quem você ama levarem juntos por aí.
+        </p>
+        <p>R$15,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Par de Chaveiros"
+          data-preco="R$15,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/jar.jpg" alt="Potinho de Luz">
-  <h3>Potinho de Luz</h3>
-  <p class="descricao">Encante com essa decoração mágica que brilha no escuro.</p>
-  <p>R$35,00</p>
-  <button class="btn-whatsapp" data-nome="Potinho de Luz" data-preco="R$35,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/box2.jpg" alt="Van Gogh Box" />
+        <h3>Van Gogh Box</h3>
+        <p class="descricao">
+          Assim como Van Gogh amou o amarelo, presenteie a pessoa que você ama
+        </p>
+        <p>R$12,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Van Gogh Box"
+          data-preco="R$12,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/chaveiro.jpg" alt="Par de Chaveiros">
-  <h3>Par de Chaveiros</h3>
-  <p class="descricao">Chaveiros combinando para você e quem você ama levarem juntos por aí.</p>
-  <p>R$15,00</p>
-  <button class="btn-whatsapp" data-nome="Par de Chaveiros" data-preco="R$15,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/cubo.jpg" alt="Picture Cube" />
+        <h3>Picture Cube</h3>
+        <p class="descricao">
+          6 lados para eternizar memórias e momentos inesquecíveis.
+        </p>
+        <p>R$40,00</p>
+        <button
+          class="btn-whatsapp"
+          data-nome="Picture Cube"
+          data-preco="R$35,00"
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/box2.jpg" alt="Van Gogh Box">
-  <h3>Van Gogh Box</h3>
-  <p class="descricao">Assim como Van Gogh amou o amarelo, presenteie a pessoa que você ama</p>
-  <p>R$12,00</p>
-  <button class="btn-whatsapp" data-nome="Van Gogh Box" data-preco="R$12,00">Comprar</button>
-</span>
+      <span class="produto-card">
+        <img src="img/cetim2.jpg" alt="Setin Bouquet" />
+        <h3>Cetim Bouquet</h3>
+        <p class="descricao">
+          Um mimo delicado com rosas de cetim para momentos inesquecíveis.
+        </p>
+        <p class="preco">A partir de R$60,00</p>
 
-<span class="produto-card">
-  <img src="img/cubo.jpg" alt="Picture Cube">
-  <h3>Picture Cube</h3>
-  <p class="descricao">6 lados para eternizar memórias e momentos inesquecíveis.</p>
-  <p>R$35,00</p>
-  <button class="btn-whatsapp" data-nome="Picture Cube" data-preco="R$35,00">Comprar</button>
-</span>
+        <label for="tamanho-cetim1">Tamanho:</label>
+        <select id="tamanho-cetim1" class="opcoes-tamanho">
+          <option value="8 Rosas" data-preco="R$60,00">
+            8 rosas - R$60,00
+          </option>
+          <option value="14 Rosas" data-preco="R$90,00">
+            14 rosas - R$90,00
+          </option>
+          <option value="20 Rosas" data-preco="R$120,00">
+            20 rosas - R$120,00
+          </option>
+        </select>
 
-<span class="produto-card">
-  <img src="img/cetim2.jpg" alt="Setin Bouquet">
-  <h3> Cetim Bouquet</h3>
-  <p class="descricao">Um mimo delicado com rosas de cetim para momentos inesquecíveis.</p>
-  <p class="preco">A partir de R$60,00</p>
-
-  <label for="tamanho-cetim1">Tamanho:</label>
-  <select id="tamanho-cetim1" class="opcoes-tamanho">
-    <option value="8 Rosas" data-preco="R$60,00">8 rosas - R$60,00</option>
-    <option value="14 Rosas" data-preco="R$90,00">14 rosas - R$90,00</option>
-    <option value="20 Rosas" data-preco="R$120,00">20 rosas - R$120,00</option>
-  </select>
-
-  <button
-    class="btn-whatsapp"
-    data-nome="Cetim Bouquet"
-    data-variacoes='[
+        <button
+          class="btn-whatsapp"
+          data-nome="Cetim Bouquet"
+          data-variacoes='[
       {"tamanho":"8 Rosas","preco":"R$60,00"},
       {"tamanho":"14 Rosas","preco":"R$90,00"},
       {"tamanho":"20 Rosas","preco":"R$120,00"}
-    ]'>
-    Comprar
-  </button>
-</span>
+    ]'
+        >
+          Comprar
+        </button>
+      </span>
 
-<span class="produto-card">
-  <img src="img/butterfly1.jpg" alt="Butterfly Bouquet">
-  <h3>Butterfly Bouquet</h3>
-  <p class="descricao">Flores já são lindas, mas um bouquet de borboletas é ainda mais lindo!</p>
+      <span class="produto-card">
+        <img src="img/butterfly1.jpg" alt="Butterfly Bouquet" />
+        <h3>Butterfly Bouquet</h3>
+        <p class="descricao">
+          Flores já são lindas, mas um bouquet de borboletas é ainda mais lindo!
+        </p>
 
-  <p>A partir de R$70,00</p>
+        <p>A partir de R$70,00</p>
 
-  <label for="borboletas-butterfly">Tamanho:</label>
-  <select class="opcoes-tamanho" id="borboletas-butterfly">
-    <option value="30 borboletas">30 borboletas-R$50,00</option>
-    <option value="50 borboletas">50 borboletas-R$70,00</option>
-    <option value="100 borboletas">100 borboletas-R$100,00</option>
-  </select>
+        <label for="borboletas-butterfly">Tamanho:</label>
+        <select class="opcoes-tamanho" id="borboletas-butterfly">
+          <option value="30 borboletas">30 borboletas-R$50,00</option>
+          <option value="50 borboletas">50 borboletas-R$70,00</option>
+          <option value="100 borboletas">100 borboletas-R$100,00</option>
+        </select>
 
-  
-  <button
-    class="btn-whatsapp"
-    data-nome="Butterfly Bouquet"
-    data-variacoes='[
+        <button
+          class="btn-whatsapp"
+          data-nome="Butterfly Bouquet"
+          data-variacoes='[
       { "tamanho": "30 borboletas", "preco": "R$50,00" },
       { "tamanho": "50 borboletas", "preco": "R$70,00" },
       { "tamanho": "100 borboletas", "preco": "R$100,00" }
     ]'
-  >Comprar</button>
-</span>
+        >
+          Comprar
+        </button>
+      </span>
 
+      <span class="produto-card">
+        <img src="img/butterfly2.jpg" alt="Choco-Butterfly Bouquet" />
+        <h3>Choco-Butterfly Bouquet</h3>
+        <p class="descricao">
+          Borboletas e chocolates, o combo perfeito para adoçar corações.
+        </p>
 
-<span class="produto-card">
-  <img src="img/butterfly2.jpg" alt="Choco-Butterfly Bouquet">
-  <h3>Choco-Butterfly Bouquet</h3>
-  <p class="descricao">Borboletas e chocolates, o combo perfeito para adoçar corações.</p>
+        <p>A partir de R$60,00</p>
 
-  <p>A partir de R$60,00</p>
+        <label for="borboletas-choco">Tamanho:</label>
+        <select class="opcoes-tamanho" id="borboletas-choco">
+          <option value="30 borboletas">30 borboletas-R$60,00</option>
+          <option value="50 borboletas">50 borboletas-R$85,00</option>
+          <option value="100 borboletas">100 borboletas-R$110,00</option>
+        </select>
 
-  <label for="borboletas-choco">Tamanho:</label>
-  <select class="opcoes-tamanho" id="borboletas-choco">
-    <option value="30 borboletas">30 borboletas-R$60,00</option>
-    <option value="50 borboletas">50 borboletas-R$85,00</option>
-    <option value="100 borboletas">100 borboletas-R$110,00</option>
-  </select>
-
-  <button
-    class="btn-whatsapp"
-    data-nome="Choco-Butterfly Bouquet"
-    data-variacoes='[
+        <button
+          class="btn-whatsapp"
+          data-nome="Choco-Butterfly Bouquet"
+          data-variacoes='[
       { "tamanho": "30 borboletas", "preco": "R$60,00" },
       { "tamanho": "50 borboletas", "preco": "R$85,00" },
       { "tamanho": "100 borboletas", "preco": "R$110,00" }
     ]'
-  >Comprar</button>
-</span>
-
-
+        >
+          Comprar
+        </button>
+      </span>
     </div>
 
-    <h1 class="tittle">Sobre a Amor Printed</h1>
+    <h1 class="title">Sobre a Amor Printed</h1>
 
-<div class="sobre" id="sobre">
-    <p>Na Amor Printed, nossa missão é transformar momentos especiais em lembranças inesquecíveis. Somos uma loja artesanal que se dedica a criar presentes personalizados com muito amor e carinho, perfeitos para qualquer ocasião: aniversários, casamentos, datas comemorativas ou simplesmente para surpreender alguém querido de uma forma única.</p>
-    
-    <h2>Produtos Feitos com Carinho</h2>
-    <p>Cada um dos nossos produtos é elaborado com o maior cuidado e atenção aos detalhes. Desde as caixas de bombons personalizadas, que encantam pelo sabor e pela beleza, até os quadros decorativos feitos sob medida para refletir o estilo e a personalidade de quem os recebe. Oferecemos também canecas exclusivas, almofadas personalizadas, entre outros itens que são verdadeiras obras de arte criadas especialmente para você.</p>
-    
-    <h2>A Arte de Presentear</h2>
-    <p>Acreditamos que um presente vai além de um simples objeto – ele carrega consigo sentimentos profundos de afeto, gratidão e amor. Por isso, cada item que criamos é pensado para tocar o coração de quem o recebe. Nossos produtos são feitos artesanalmente, utilizando materiais de alta qualidade e sempre com a possibilidade de personalização. Quer seja uma mensagem especial, uma imagem única ou até mesmo a combinação de cores que represente um momento único, garantimos que cada peça seja exclusiva e carregue um toque pessoal e inconfundível.</p>
-    
-    <h2>Nosso Compromisso com Você</h2>
-    <p>Na **Amor Printed**, nosso compromisso vai além de criar produtos: buscamos proporcionar experiências que toquem os corações de quem os recebe. Queremos que você possa presentear com criatividade, emoção e significado. Cada presente que sai da nossa loja é um pedaço de carinho, pensado para criar memórias duradouras e espalhar amor ao redor.</p>
-    
-    <h2>Descubra a Magia de Presentear</h2>
-    <p>Venha explorar nossas opções e descubra como é simples e encantador encontrar o presente perfeito. Na **Amor Printed**, acreditamos que cada presente tem o poder de criar uma conexão única entre quem dá e quem recebe. Junte-se a nós nessa jornada de amor e carinho, e faça a diferença na vida de quem você ama!</p>
+    <div class="sobre" id="sobre">
+      <p>
+        Na Amor Printed, nossa missão é transformar momentos especiais em
+        lembranças inesquecíveis. Somos uma loja artesanal que se dedica a criar
+        presentes personalizados com muito amor e carinho, perfeitos para
+        qualquer ocasião: aniversários, casamentos, datas comemorativas ou
+        simplesmente para surpreender alguém querido de uma forma única.
+      </p>
 
-    <p><strong>Estamos aqui para transformar seus momentos em memórias eternas.</strong></p>
-</div>
+      <h2>Produtos Feitos com Carinho</h2>
+      <p>
+        Cada um dos nossos produtos é elaborado com o maior cuidado e atenção
+        aos detalhes. Desde as caixas de bombons personalizadas, que encantam
+        pelo sabor e pela beleza, até os quadros decorativos feitos sob medida
+        para refletir o estilo e a personalidade de quem os recebe. Oferecemos
+        também canecas exclusivas, almofadas personalizadas, entre outros itens
+        que são verdadeiras obras de arte criadas especialmente para você.
+      </p>
 
+      <h2>A Arte de Presentear</h2>
+      <p>
+        Acreditamos que um presente vai além de um simples objeto – ele carrega
+        consigo sentimentos profundos de afeto, gratidão e amor. Por isso, cada
+        item que criamos é pensado para tocar o coração de quem o recebe. Nossos
+        produtos são feitos artesanalmente, utilizando materiais de alta
+        qualidade e sempre com a possibilidade de personalização. Quer seja uma
+        mensagem especial, uma imagem única ou até mesmo a combinação de cores
+        que represente um momento único, garantimos que cada peça seja exclusiva
+        e carregue um toque pessoal e inconfundível.
+      </p>
+
+      <h2>Nosso Compromisso com Você</h2>
+      <p>
+        Na **Amor Printed**, nosso compromisso vai além de criar produtos:
+        buscamos proporcionar experiências que toquem os corações de quem os
+        recebe. Queremos que você possa presentear com criatividade, emoção e
+        significado. Cada presente que sai da nossa loja é um pedaço de carinho,
+        pensado para criar memórias duradouras e espalhar amor ao redor.
+      </p>
+
+      <h2>Descubra a Magia de Presentear</h2>
+      <p>
+        Venha explorar nossas opções e descubra como é simples e encantador
+        encontrar o presente perfeito. Na **Amor Printed**, acreditamos que cada
+        presente tem o poder de criar uma conexão única entre quem dá e quem
+        recebe. Junte-se a nós nessa jornada de amor e carinho, e faça a
+        diferença na vida de quem você ama!
+      </p>
+
+      <p>
+        <strong
+          >Estamos aqui para transformar seus momentos em memórias
+          eternas.</strong
+        >
+      </p>
+    </div>
 
     <footer>
-        <div class="footer-content">
-            <p><i class="fas fa-copyright"></i> 2025 Amor Printed. Todos os direitos reservados.</p>
-            
-            <nav class="footer-links">
-                <a href="#"><i class="fas fa-lock"></i>Política de Privacidade</a>
-                <br>
-                <a href="#"><i class="fas fa-gavel"></i>Termos de Uso</a>
-                
-            </nav>
-            
-            <div class="social" id="contato">
-                <a href="https://api.whatsapp.com/send/?phone=5581994978629&text&type=phone_number&app_absent=0"><i class="fab fa-whatsapp"></i>WhatsApp</a>
-                <a href="https://www.instagram.com/amorprinted/"><i class="fab fa-instagram"></i>Instagram</a>
-            </div>
-    
-            <div class="contact-info">
-                <p>Telefone: (81) 99497-8629</p>
-            </div>
-            
-            <div class="location">
-                <p>Endereço: Rua General americano freire, 615, Salgado, Caruaru, Pernambuco</p>
-            </div>
+      <div class="footer-content">
+        <div class="footer-section about">
+          <p>
+            <i class="fas fa-copyright"></i> 2025 Amor Printed. Todos os
+            direitos reservados.
+          </p>
         </div>
+
+        <div class="footer-section links">
+          <nav class="footer-links">
+            <a href="#"><i class="fas fa-lock"></i> Política de Privacidade</a>
+            <br />
+            <a href="#"><i class="fas fa-gavel"></i> Termos de Uso</a>
+          </nav>
+        </div>
+
+        <div class="footer-section social">
+          <a
+            href="https://api.whatsapp.com/send/?phone=5581994978629&text&type=phone_number&app_absent=0"
+          >
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="https://www.instagram.com/amorprinted/">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        </div>
+
+        <div class="footer-section contact">
+          <p><i class="fas fa-phone"></i> (81) 99497-8629</p>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Rua General Americano Freire,
+            615, Salgado, Caruaru - PE
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script>
+      const numeroWhatsApp = "5581994978629";
 
-        const numeroWhatsApp = "5581994978629";
+      document.querySelectorAll(".btn-whatsapp").forEach((botao) => {
+        botao.addEventListener("click", function () {
+          const nome = this.getAttribute("data-nome");
+          const variacoes = this.getAttribute("data-variacoes");
+          const precoFixo = this.getAttribute("data-preco");
+          let mensagem = "";
+          let preco = "";
+          let tamanho = "";
 
-        document.querySelectorAll(".btn-whatsapp").forEach(botao => {
-            botao.addEventListener("click", function () {
-                const nome = this.getAttribute("data-nome");
-                const variacoes = this.getAttribute("data-variacoes");
-                const precoFixo = this.getAttribute("data-preco");
-                let mensagem = "";
-                let preco = "";
-                let tamanho = "";
+          if (variacoes) {
+            // Tenta achar o <select> correspondente dentro do mesmo produto-card
+            const card = this.closest(".produto-card");
+            const select = card.querySelector(".opcoes-tamanho");
 
-                if (variacoes) {
-      // Tenta achar o <select> correspondente dentro do mesmo produto-card
-                    const card = this.closest(".produto-card");
-                    const select = card.querySelector(".opcoes-tamanho");
+            if (select) {
+              tamanho = select.value;
+              const listaVariacoes = JSON.parse(variacoes);
+              const variacaoSelecionada = listaVariacoes.find(
+                (v) => v.tamanho === tamanho
+              );
 
-                if (select) {
-                    tamanho = select.value;
-                    const listaVariacoes = JSON.parse(variacoes);
-                    const variacaoSelecionada = listaVariacoes.find(v => v.tamanho === tamanho);
-
-                    if (variacaoSelecionada) {
-                        preco = variacaoSelecionada.preco;
-                        mensagem = `Olá, gostei do produto ${nome} com o tamanho ${tamanho}, vi que ele está por ${preco}, tenho interesse em comprar.`;
-                    } else {
-                        alert("Erro ao encontrar a variação selecionada.");
-                        return;
-                    }
-                } else {
-                    alert("Nenhuma opção de tamanho selecionada.");
-                    return;
-                }
-        } else {
+              if (variacaoSelecionada) {
+                preco = variacaoSelecionada.preco;
+                mensagem = `Olá, gostei do produto ${nome} com o tamanho ${tamanho}, vi que ele está por ${preco}, tenho interesse em comprar.`;
+              } else {
+                alert("Erro ao encontrar a variação selecionada.");
+                return;
+              }
+            } else {
+              alert("Nenhuma opção de tamanho selecionada.");
+              return;
+            }
+          } else {
             preco = precoFixo;
             mensagem = `Olá, gostei do produto ${nome}, vi que ele está por ${preco}, tenho interesse em comprar.`;
-        }
+          }
 
-            const link = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-            window.open(link, "_blank");
+          const link = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
+            mensagem
+          )}`;
+          window.open(link, "_blank");
         });
-    });
+      });
 
+      document.querySelectorAll(".produto-card").forEach((card) => {
+        const variacoes = JSON.parse(card.dataset.variacoes || "[]");
+        const select = card.querySelector(".opcoes-tamanho");
+        const precoDisplay = card.querySelector("p");
 
-        document.querySelectorAll('.produto-card').forEach(card => {
-            const variacoes = JSON.parse(card.dataset.variacoes || "[]");
-            const select = card.querySelector('.opcoes-tamanho');
-            const precoDisplay = card.querySelector('p');
-
-            if (select && variacoes.length > 0) {
-                select.addEventListener('change', e => {
-                const selecionado = variacoes.find(v => v.tamanho === e.target.value);
-                if (selecionado) {
-                    precoDisplay.textContent = selecionado.preco;
-                }
-            });
+        if (select && variacoes.length > 0) {
+          select.addEventListener("change", (e) => {
+            const selecionado = variacoes.find(
+              (v) => v.tamanho === e.target.value
+            );
+            if (selecionado) {
+              precoDisplay.textContent = selecionado.preco;
             }
-        });
+          });
+        }
+      });
 
+      const hamburger = document.getElementById("hamburger");
+      const menuOverlay = document.getElementById("menu-overlay");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        menuOverlay.classList.toggle("show");
+      });
+
+      // Fecha o menu ao clicar em um link
+      document.querySelectorAll("#menu-overlay a").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          menuOverlay.classList.remove("show");
+        });
+      });
     </script>
-    
-    
-</body>
+  </body>
 </html>
